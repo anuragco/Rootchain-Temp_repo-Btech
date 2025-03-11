@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:4306
--- Generation Time: Nov 18, 2024 at 02:01 PM
+-- Generation Time: Mar 11, 2025 at 09:29 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,9 +18,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `RootChain`
+-- Database: `rootchain`
 --
-
 
 -- --------------------------------------------------------
 
@@ -30,25 +29,24 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `fullname` varchar(150) NOT NULL,
-  `email` varchar(100) NOT NULL,
+  `fullname` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `user_type` enum('buyer','seller') DEFAULT NULL,
   `password` varchar(255) NOT NULL,
-  `Confirm_Password` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `auth` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `fullname`, `email`, `password`,`password`, `created_at`, `updated_at`) VALUES
-(1, 'John Doe', 'johndoe@example.com', 'hashed_password123', 'hashed_password123', '2024-11-17 10:14:35', '2024-11-17 10:14:35'),
-(2, 'Anurag', 'aws.anu.co@gmail.com', '1234567', '1234567', '2024-11-17 13:07:00', '2024-11-17 13:34:55'),
-(9, 'Anurag', 'aws.anh.co@gmail.com', '123456', '123456', '2024-11-17 13:32:30', '2024-11-17 13:32:30'),
-(10, 'Ankit', 'ankit@gmail.com', '123456', '123456', '2024-11-17 17:52:30', '2024-11-17 17:52:30'),
-(11, 'Saurav', 'anurag@gmail.com', '12345677', '12345677', '2024-11-18 11:10:04', '2024-11-18 11:10:04'),
-(12, 'ankit', 'ankit123@gmail.com', 'ankit123', 'ankit123', '2024-11-18 12:53:03', '2024-11-18 12:53:03');
+INSERT INTO `users` (`id`, `fullname`, `email`, `user_type`, `password`, `created_at`, `auth`) VALUES
+(1, 'Anurag Anand', 'aws.anu.co@gmail.com', 'buyer', '123', '2025-03-11 19:14:54', NULL),
+(2, 'Anurag Anand', 'aws.an2.co@gmail.com', NULL, '123', '2025-03-11 19:24:21', NULL),
+(3, 'Anurag Anand', 'aws.an3.co@gmail.com', 'seller', '$2b$10$K74hZtidXcTZ4NYgCsSTsuvPwrS84LreWD6cJqvMnEIdxuhxrJ5/m', '2025-03-11 19:25:33', '515d1647-c776-4027-8c59-47e0a2b276bd'),
+(4, 'Anurag ANand', 'demo@gmail.com', NULL, '$2b$10$y7H1CagLMbfJTTkkNW1BWO.JiFFVgB/KB0gcV0MocwLdLfLKv918C', '2025-03-11 19:40:57', NULL),
+(5, 'Anurag NAand', 'aws.anu4.co@gmail.com', NULL, '$2b$10$KQF6/.62eKmUR5ph6a7OvOfzKRuVXDeFBRJOf1KY0VHTrzLIRHZ1O', '2025-03-11 19:45:33', '44c4b91e-4c33-438c-819b-3c80700f19ff');
 
 --
 -- Indexes for dumped tables
@@ -59,7 +57,8 @@ INSERT INTO `users` (`id`, `fullname`, `email`, `password`,`password`, `created_
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `auth` (`auth`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -69,7 +68,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
