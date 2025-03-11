@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Admin.css"> <!-- Link to your CSS file -->
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">Admin Dashboard</div>
+        <nav class="navbar">
+            <a href="#dashboard" class="active">Dashboard</a>
+            <a href="#users">Users</a>
+            <a href="#settings">Settings</a>
+            <a href="#logout">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="dashboard">
+            <h1>Dashboard Overview</h1>
+            <div class="cards">
+                <div class="card">
+                    <h2>Total Users</h2>
+                    <p>150</p>
+                </div>
+                <div class="card">
+                    <h2>Active Sessions</h2>
+                    <p>75</p>
+                </div>
+                <div class="card">
+                    <h2>New Signups</h2>
+                    <p>20</p>
+                </div>
+                <div class="card">
+                    <h2>Pending Requests</h2>
+                    <p>5</p>
+                </div>
+            </div>
+            <div class="charts">
+                <h2>User Growth</h2>
+                <canvas id="userGrowthChart"></canvas>
+            </div>
+        </section>
+
+        <section id="users">
+            <h1>User Management</h1>
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>John Doe</td>
+                        <td>john@example.com</td>
+                        <td>Active</td>
+                        <td><button class="btn">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jane Smith</td>
+                        <td>jane@example.com</td>
+                        <td>Inactive</td>
+                        <td><button class="btn">Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 RootChain Admin Dashboard. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const ctx = document.getElementById('userGrowthChart').getContext('2d');
+        const userGrowthChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                datasets: [{
+                    label: 'User  Growth',
+                    data: [10, 20, 30, 40, 50, 60],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 2,
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Users'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Months'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

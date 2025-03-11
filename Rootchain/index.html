@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rootchain</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="icon.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./cursor/style.css" />
+    <link rel="stylesheet" href="./Conditions/Conditions.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/b08b6de27e.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7972082263222296"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+      .legal-page a {
+        text-decoration: none;
+        color: white;
+      }
+      .legal-page a:hover {
+        color: rgb(192, 223, 100);
+      }
+    </style>
+
+    <link rel="stylesheet" href="./Scrollbar/scrollbar.css" />
+  </head>
+
+  <body>
+    <div id="progressBar"></div>
+    <script src="./Scrollbar/scrollbar.js"></script>
+
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+    </div>
+    <header class="header">
+      <img
+        src="icon.png"
+        alt="logo"
+        style="height: 50px; width: 50px; margin-right: 10px"
+      />
+      <a href="#" class="logo" style="margin-inline-end: auto"
+        ><h3>Rootchain</h3>
+      </a>
+
+      <a>
+        <div class="theme-toggle">
+          <i class="fas fa-sun"></i>
+          <i class="fas fa-moon"></i>
+        </div>
+      </a>
+
+      <i class="bx bx-menu" id="menu-icon"></i>
+      <nav class="navbar">
+        <a href="./index.html" class="active content"
+          ><i class="fa-solid fa-house"></i> Home</a
+        >
+        <a href="./about/about.html"
+          ><i class="fa-solid fa-circle-info"></i> About</a
+        >
+        <a href="./Learn/Learnpage.html" target="_self">
+          <i class="fa-solid fa-blog"></i> Learn</a
+        >
+        <a href="./Trade/Trade.html" target="_self">
+          <i class="fa-solid fa-blog"></i> Trade</a
+        >
+        <a href="./Resouce_Library.html"
+          ><i class="fa-solid fa-book"></i> Resource Library</a
+        >
+        <a href="./FAQS/faqpage.html" target="_self"
+          ><i class="fas fa-question-circle"></i>FAQs</a
+        >
+        <a href="./Contact.html" id="nav--contact"
+          ><i class="fa-solid fa-phone"></i> Contact</a
+        >
+        <a href="./login/login.html">
+          <button id="log-in-btn" class="login-btn">Login</button>
+        </a>
+      </nav>
+    </header>
+
+    <section class="home" id="home">
+      <div class="slider">
+        <div class="home-content content glow">
+          <h3 class="home--welcome">Welcome to</h3>
+          <h1 class="home--welcome">Rootchain</h1>
+          <h3 class="home--welcome">
+            Your Agricultural Partner to
+            <span class="multiple-text un"></span>
+          </h3>
+        </div>
+        <div class="slide_viewer">
+          <div class="slide_group">
+            <div
+              class="slide"
+              style="background-image: url(./images/carousel-img-2.jpg)"
+            ></div>
+            <div
+              class="slide"
+              style="background-image: url(./images/carousel-img-1.jpg)"
+            ></div>
+            <div
+              class="slide"
+              style="background-image: url(./images/carousel-img-3.jpg)"
+            ></div>
+            <div
+              class="slide"
+              style="background-image: url(./images/carousel-img-4.jpg)"
+            ></div>
+            <div
+              class="slide"
+              style="background-image: url(./images/carousel-img-2.jpg)"
+            ></div>
+        
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <h1 id="testi">OUR REVIEWS</h1>
+    <div class="wrapper">
+      <script src="./Conditions/Conditions.js" defer></script>
+      <i id="left" class="fa-solid fa-angle-left"></i>
+
+      <ul class="carousel">
+        <li class="card">
+          <div class="img">
+            <img
+              src="https://media.istockphoto.com/id/1453962739/photo/the-middle-aged-indian-farmer-is-smiling-while-showing-his-monthly-income-indian-model.jpg?s=612x612&w=0&k=20&c=YdevYcNxwoQB1efBaOzATJywHHarzzpXAQ7Sd_fTniY="
+              alt="img"
+              draggable="false"
+            />
+          </div>
+          <h2 id="testnames">Amit Sharma</h2>
+          <span
+            >RootChain has completely changed the way I sell my crops. 
+            I can now connect with buyers directly and get better prices for my harvest. </span
+          >
+        </li>
+        <li class="card">
+          <div class="img">
+            <img
+              src="https://media.istockphoto.com/id/1313331834/photo/happy-woman-standing-in-agricultural-field.jpg?s=612x612&w=0&k=20&c=vLt1iPitZdviWIn4L1jcXQ1bTul2XMFvuYD1VxhFfPY="
+              alt="img"
+              draggable="false"
+            />
+          </div>
+          <h2 id="testnames">Meera Joshi </h2>
+          <span
+            >This website has helped me understand better ways to grow crops and use the right tools. 
+            The information is easy to follow, and it has boosted my productivity.</span
+          >
+        </li>
+        <li class="card">
+          <div class="img">
+            <img
+              src="https://static.vecteezy.com/system/resources/previews/047/265/433/large_2x/portrait-of-young-indian-farmer-wearing-formal-dress-in-green-paddy-field-photo.jpg"
+              alt="img"
+              draggable="false"
+            />
+          </div>
+          <h2 id="testnames">Ramesh Kumar</h2>
+          <span
+            >The website is well-designed, informative, and easy to use. 
+            RootChain is helping farmers connect with the right buyers without any trouble.</span
+          >
+        </li>
+        <li class="card">
+          <div class="img">
+            <img
+              src="https://media.istockphoto.com/id/1205325344/photo/farmer-in-agricultural-field.jpg?s=612x612&w=0&k=20&c=krsRk4T2MsmMy6PmrpPDR0i_1ja3_jQaNl80fBejWck="
+              alt="img"
+              draggable="false"
+            />
+          </div>
+          <h2 id="testnames">Vikram Singh</h2>
+          <span
+            >RootChain is the future of farming!
+            It not only connects farmers with buyers but also educates them on how to improve their yield. 
+            I highly appreciate this initiative.</span
+          >
+        </li>
+        <li class="card">
+          <div class="img">
+            <img
+              src="https://media.istockphoto.com/id/1130904205/photo/indian-rural-man-stock-images.jpg?s=612x612&w=0&k=20&c=FYY38IqukE0aJATU2SAW6iInNov0mcLNnCB8lfRmvmM="
+              alt="img"
+              draggable="false"
+            />
+          </div>
+          <h2 id="testnames">Manoj Verma</h2>
+          <span
+            >RootChain is helping farmers grow and sell with confidence. 
+            The platform ensures a stable market, which benefits both farmers and buyers. 
+            Great initiative!</span
+          >
+        </li>
+        <li class="card">
+          <div class="img">
+            <img
+              src="https://as1.ftcdn.net/jpg/03/06/27/96/1000_F_306279600_D3aXmoD6w6Ol4BysConegV7rS8eK7u7B.jpg"
+              alt="img"
+              draggable="false"
+            />
+          </div>
+          <h2 id="testnames">Vivek Yadav</h2>
+          <span
+            >RootChain is a trusted platform that ensures farmers like me get fair deals. 
+            I appreciate how it supports both selling crops and learning better techniques.</span
+          >
+        </li>
+        <li class="card">
+          <div class="img">
+            <img
+              src="https://us.123rf.com/450wm/stockimagesbank/stockimagesbank2012/stockimagesbank201200212/160651532-smiling-indian-woman-farm-owner-standing-in-agricultural-field.jpg?ver=6"
+              alt="img"
+              draggable="false"
+            />
+          </div>
+          <h2 id="testnames">Neha Agarwal</h2>
+          <span
+            >I learned about new farming techniques through RootChain, which helped me increase my crop production. 
+            The platform is easy to use and very informative.
+          </span>
+        </li>
+      </ul>
+      <i id="right" class="fa-solid fa-angle-right"></i>
+    </div>
+    
+    <section class="contact" id="contact">
+      <h2 class="heading">Contact <span>Us!</span></h2>
+      <form id="contact-form">
+        <div class="input-box">
+          <input type="text" placeholder="Full Name" id="fullname" required />
+          <input
+            type="email"
+            placeholder="Email Address"
+            id="emailaddress"
+            required
+          />
+        </div>
+
+        <div class="input-box">
+          <input
+            type="number"
+            placeholder="Mobile Number"
+            id="mobileNumber"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Email Subject"
+            id="emailsubject"
+            required
+          />
+        </div>
+
+        <textarea
+          id="message"
+          cols="30"
+          rows="10"
+          placeholder="Your Message"
+          required
+        ></textarea>
+        <input
+          type="submit"
+          class="btn"
+          id="contact-btn"
+          value="Submit"
+        /><br />
+      </form>
+      <div class="button-container">
+        <button id="review-btn">Give feedback</button>
+      </div>
+    </section>
+
+
+    <div
+      id="modal"
+      class="modal fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center"
+      style="display: none"
+    >
+      <div class="modal-content bg-white p-6 rounded shadow-lg relative">
+        <h2 class="text-2xl font-bold mb-4">
+          WE'D LOVE YOUR FEEDBACK!
+          <span class="close cursor-pointer text-gray-500 absolute text-xl"
+            >&times;</span
+          >
+        </h2>
+        <p class="main-para mb-4">
+          Let us know how we're doing and how we can improve. <br /><strong
+            >Rootchain Network</strong
+          >
+        </p>
+        <div class="rating mb-4">
+          <h3 class="rate-para text-xl font-semibold mb-2">
+            Rate Your Experience
+          </h3>
+          <div class="stars" id="stars">
+            <span class="star cursor-pointer" data-value="1">&#9733;</span>
+            <span class="star cursor-pointer" data-value="2">&#9733;</span>
+            <span class="star cursor-pointer" data-value="3">&#9733;</span>
+            <span class="star cursor-pointer" data-value="4">&#9733;</span>
+            <span class="star cursor-pointer" data-value="5">&#9733;</span>
+          </div>
+          <input type="hidden" name="rating" id="rating-value-input" required />
+        </div>
+
+        <form id="feedback-form">
+          <div class="form-group mb-4">
+            <label for="name" class="block text-left mb-2">Your Name</label>
+            <div class="form-group flex items-center mb-4">
+              <div class="icon mr-2">
+                <i class="fas fa-user"></i>
+              </div>
+              <input
+                id="name"
+                class="border p-2 w-full"
+                type="text"
+                placeholder="Your Name"
+                name="name"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group mb-4">
+            <label for="email" class="block text-left mb-2">Your Email</label>
+            <div class="form-group flex items-center mb-4">
+              <div class="icon mr-2">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <input
+                id="email"
+                class="border p-2 w-full"
+                type="email"
+                placeholder="Your Email"
+                name="email"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group mb-4">
+            <label for="feedback" class="block text-left mb-2"
+              >Your Feedback</label
+            >
+            <textarea
+              id="feedback"
+              class="border p-2 w-full"
+              cols="30"
+              rows="5"
+              placeholder="Your Feedback"
+              required
+            ></textarea>
+          </div>
+
+          <button
+            class="bg-blue-500 text-white px-4 py-2 rounded"
+            type="submit"
+          >
+            Submit Feedback
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div
+      id="thank-you-popup"
+      class="popup fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center"
+      style="display: none"
+    >
+      <div class="popup-content bg-white p-6 rounded shadow-lg text-center">
+        <h2>Thank You for your Feedback!💚</h2>
+        <div class="popup-icon">
+          <img
+            src="./images/feedback-tick.png"
+            alt="✅"
+            height="160"
+            width="180"
+          />
+        </div>
+        <p class="pop-para">
+          Your feedback has been received!<br />
+          We appreciate the input you provide.
+        </p>
+        <button
+          class="popup-button bg-blue-500 text-white px-4 py-2 rounded"
+          onclick="closePopup()"
+        >
+          Back to Home
+        </button>
+      </div>
+    </div>
+
+    <div
+      id="rating-popup"
+      class="popup fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center"
+      style="display: none"
+    >
+      <div class="popup-content bg-white p-8 rounded shadow-lg text-center">
+        <h2>Please Give a Rating!⭐</h2>
+        <div class="popup-icon">
+          <img
+            src="./images/Warning.webp"
+            alt="⚠️"
+            height="100"
+            width="120"
+            class="my-4"
+            style="margin-top: 20px; margin-bottom: 20px"
+          />
+        </div>
+        <p class="pop-para">
+          Your feedback is important to us.<br />
+          Please select a rating before submitting.
+        </p>
+        <button
+          class="popup-button bg-blue-500 text-white px-4 py-2 rounded mt-4"
+          onclick="closeRatingPopup()"
+        >
+          OK
+        </button>
+      </div>
+    </div>
+    <script>
+
+      document
+        .getElementById("feedback-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); 
+
+
+          const name = document.getElementById("name").value.trim();
+          const email = document.getElementById("email").value.trim();
+          const feedback = document.getElementById("feedback").value.trim();
+          const rating = document
+            .getElementById("rating-value-input")
+            .value.trim();
+
+
+          if (name && email && feedback && rating) {
+  
+            document.getElementById("popup").style.display = "flex";
+
+
+            this.reset();
+
+            const stars = document.querySelectorAll(".star");
+            stars.forEach((star) => star.classList.remove("active"));
+          }
+        });
+
+
+      function closePopup() {
+        document.getElementById("popup").style.display = "none";
+      }
+
+
+
+      const stars = document.querySelectorAll(".star");
+
+      stars.forEach((star, index) => {
+        star.addEventListener("mouseover", function () {
+   
+          stars.forEach((s) => s.classList.remove("hover"));
+
+    
+          for (let i = 0; i <= index; i++) {
+            stars[i].classList.add("hover");
+          }
+        });
+
+        star.addEventListener("click", function () {
+          const value = parseInt(this.getAttribute("data-value"));
+          document.getElementById("rating-value-input").value = value;
+
+
+          stars.forEach((s) => s.classList.remove("active"));
+
+
+          for (let i = 0; i < value; i++) {
+            stars[i].classList.add("active");
+          }
+        });
+      });
+
+      document
+        .querySelector(".stars")
+        .addEventListener("mouseleave", function () {
+          stars.forEach((star) => star.classList.remove("hover"));
+        });
+
+
+      document.querySelector(".close").addEventListener("click", () => {
+        document.getElementById("modal").style.display = "none";
+      });
+
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const stars = document.querySelectorAll(".star");
+        const ratingInput = document.getElementById("rating-value-input");
+        const modal = document.getElementById("modal");
+        const closeModal = document.querySelector(".close");
+
+        stars.forEach((star) => {
+          star.addEventListener("click", function () {
+            const ratingValue = this.getAttribute("data-value");
+            ratingInput.value = ratingValue;
+            stars.forEach((star) => {
+              if (star.getAttribute("data-value") <= ratingValue) {
+                star.classList.add("text-yellow-500");
+              } else {
+                star.classList.remove("text-yellow-500");
+              }
+            });
+          });
+        });
+
+        document
+          .getElementById("feedback-form")
+          .addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            if (!ratingInput.value) {
+              document.getElementById("rating-popup").style.display = "flex";
+              return;
+            }
+
+            document.getElementById("thank-you-popup").style.display = "flex";
+          });
+
+        closeModal.addEventListener("click", function () {
+          modal.style.display = "none";
+        });
+      });
+
+      function closePopup() {
+        document.getElementById("thank-you-popup").style.display = "none";
+      }
+
+      function closeRatingPopup() {
+        document.getElementById("rating-popup").style.display = "none";
+      }
+
+
+      function openModal() {
+        document.getElementById("modal").style.display = "flex";
+      }
+    </script>
+
+    <script>
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault(); 
+
+          const fullname = document.getElementById("fullname").value;
+          const email = document.getElementById("email").value;
+          const mobileNumber = document.getElementById("mobileNumber").value;
+          const emailSubject = document.getElementById("emailSubject").value;
+          const message = document.getElementById("message").value;
+
+          try {
+
+            const response = await fetch("http://localhost:3000/api/contact", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                fullname,
+                emailaddress,
+                mobileNumber,
+                emailsubject,
+                message,
+              }),
+            });
+
+            if (response.ok) {
+              alert(
+                "Thank you for contacting us! We will get back to you soon."
+              );
+              document.getElementById("contact-form").reset(); 
+            } else {
+              alert(
+                "There was an error submitting your request. Please try again."
+              );
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            alert("An unexpected error occurred. Please try again later.");
+          }
+        });
+    </script>
+
+    <footer class="footer">
+      <div class="footer-grid">
+        <div class="footer-title">
+          <h2>Rootchain</h2>
+        </div>
+        <div class="footer-icons">
+          <p><b>Follow us on our socials:</b></p>
+          <div class="socialIcons">
+            <a
+              id="mail"
+              href="mailto:Rootchain215@gmail.com"
+              class="email-link"
+              data-tooltip="Rootchain215@gmail.com"
+              ><i class="fas fa-envelope"></i
+            ></a>
+            <a
+              id="inst"
+              href="https://www.instagram.com/your_username_here"
+              target="_blank"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a
+              id="twit"
+              href="https://twitter.com/your_username_here"
+              target="_blank"
+              ><i class="fa-brands fa-x-twitter"></i
+            ></a>
+            <a
+              id="fb"
+              href="https://www.facebook.com/your_page_or_profile_here"
+              target="_blank"
+              ><i class="fab fa-facebook"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+      <div class="quick-links">
+        <h2>Quick Links</h2>
+        <ul>
+          <li>
+            <a href="./index.html"><p>Home</p></a>
+          </li>
+          <li>
+            <a href="./about/about.html"><p>About Us</p></a>
+          </li>
+          <li>
+            <a href="./Learn/Learnpage.html"><p>Learn</p></a>
+          </li>
+          <li>
+            <a href="./FAQS/faqpage.html"><p>FAQs</p></a>
+          </li>
+           <li>
+            <a href="./Resouce_Library.html"><p>Resource Library</p></a>
+          </li>
+          <li>
+            <a href="./Contact.html"><p>Contact Us</p></a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-text footer-right">
+        <p style="font-weight: 600; font-size: 15px">
+          Copyright &copy;
+          <script>
+            document.write(new Date().getFullYear());
+          </script>
+          by Rootchain | All Rights Reserved
+          <span class="legal-page"
+            ><a href="./Conditions/termsandconditions.html"
+              >| Terms and Conditions</a
+            ></span
+          >
+          <span class="legal-page"
+            ><a href="./Conditions/privacypolicy.html"
+              >| Privacy Policy</a
+            ></span
+          >
+        </p>
+      </div>
+    </footer>
+    <div id="backtoTop">
+      <a href="#home"><i class="bx bx-up-arrow-alt"></i></a>
+    </div>
+    <div class="cursor"></div>
+    <div class="cursor2"></div>
+
+    <!--Floating Iconbar-->
+    <div class="icon-bar">
+      <a href="https://www.instagram.com/" class="instagram" target="_blank"
+        >Instagram<i class="fab fa-instagram"></i
+      ></a>
+      <a href="https://www.facebook.com/" class="facebook" target="_blank"
+        >Facebook<i class="fab fa-facebook"></i
+      ></a>
+      <a href="https://x.com/" class="twitter" target="_blank"
+        >Twitter<i class="fab fa-x-twitter"></i
+      ></a>
+    </div>
+
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+
+    <script src="script.js"></script>
+
+
+    <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+
+    <script>
+      window.addEventListener("scroll", function () {
+        var scrollPosition = window.scrollY;
+        var backToTopButton = document.getElementById("backtoTop");
+
+        if (scrollPosition > 300) {
+
+          backToTopButton.style.display = "block";
+        } else {
+          backToTopButton.style.display = "none";
+        }
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const slideGroup = document.querySelector(".slide_group");
+        let currentSlide = 0;
+        const images = [
+          "./images/carousel-img-2.jpg",
+          "./images/carousel-img-1.jpg",
+          "./images/carousel-img-3.jpg",
+          "./images/carousel-img-4.jpg",
+        ];
+
+        function showSlide(n) {
+          slideGroup.style.left = `${-n * 100}%`; 
+          currentSlide = n;
+        }
+
+        function nextSlide() {
+          currentSlide = (currentSlide + 1) % images.length; 
+          showSlide(currentSlide);
+        }
+
+        setInterval(nextSlide, 2000); 
+
+
+        images.forEach((src) => {
+          const img = new Image();
+          img.src = src;
+        });
+      });
+
+      const mobileNumberInput = document.getElementById("mobileNumber");
+
+      mobileNumberInput.addEventListener("input", () => {
+        const maxLength = 10;
+        const value = mobileNumberInput.value;
+
+        if (value.length > maxLength) {
+          mobileNumberInput.value = value.slice(0, maxLength);
+        }
+      });
+    </script>
+   
+    <script type="text/javascript">
+      window.addEventListener("scroll", function () {
+        var header = document.querySelector("header");
+        header.classList.toggle("sticky", window.scrollY > 10);
+      });
+    </script>
+    <script>
+      var cursor = document.querySelector(".cursor");
+      var cursor2 = document.querySelector(".cursor2");
+      document.addEventListener("mousemove", function (e) {
+        cursor.style.cssText = cursor2.style.cssText =
+          "left: " + e.clientX + "px; top: " + e.clientY + "px;";
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+    const loginBtn = document.getElementById("log-in-btn");
+
+    if (localStorage.getItem("session_id")) {
+        loginBtn.textContent = "Logout";
+        loginBtn.classList.add("logout-btn");
+
+        loginBtn.addEventListener("click", function () {
+            localStorage.removeItem("session_id"); 
+            alert("Logged out successfully!");
+            location.reload(); 
+        });
+    } else {
+       
+        loginBtn.addEventListener("click", function () {
+            window.location.href = "/login";
+        });
+    }
+});
+
+    </script>
+    <!-- <script src="./contact.js"></script> -->
+  </body>
+</html>

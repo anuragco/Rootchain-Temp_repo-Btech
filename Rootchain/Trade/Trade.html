@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat System</title>
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
+   
+    <link rel="icon" href="../icon.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/boxicons/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../cursor/style.css">
+    <link rel="stylesheet" href="./Trade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/b08b6de27e.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7972082263222296" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./cursor/style.css">
+    <link rel="stylesheet" href="/Scrollbar/scrollbar.css">
+    <style>
+      .legal-page a {
+        text-decoration: none;
+        color: white;
+      }
+      .legal-page a:hover {
+        color: rgb(192, 223, 100);
+      }
+     </style>
+    <style>
+      :root {
+        --background-color: #023b1a;
+        --text-color: #013b23;
+        --container-bg: linear-gradient(135deg, rgb(250, 250, 167), rgb(75, 186, 75));
+        --container-text-color: #000;
+    }
+    
+    body {
+        background-color: var(--background-color);
+        color: var(--text-color);
+        padding: 0;
+        margin-top: 120px;
+    }
+    
+    .privacy-container {
+        border-radius: 21px;
+        width: 67%;
+        margin: 0 auto;
+        margin-bottom: 29px;
+        padding: 20px;
+        background: var(--container-bg);
+        color: var(--container-text-color);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .privacy-heading {
+        font-family: 'Segoe UI', sans-serif !important;
+        font-size: 49px;
+        color: #0c5e0a;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .privacy-subheading {
+        font-size: 2.65em;
+        margin-top: 20px;
+        color: rgb(22, 93, 15);
+        margin-bottom: 10px;
+    }
+    
+    .privacy-para {
+        font-family: 'Segoe UI', sans-serif !important;
+        margin-bottom: 15px;
+        font-size: 17.5px;
+        text-align: justify;
+        color: var(--container-text-color);
+    }
+    
+    @media (max-width: 768px) {
+        .privacy-heading {
+            font-size: 20px;
+        }
+        .privacy-subheading {
+            font-size: 16px;
+        }
+        .privacy-para {
+            font-size: 14px;
+        }
+    }
+    
+    body.dark-theme {
+        --background-color: #121212;
+        --text-color: #ffffff;
+        --container-bg: linear-gradient(135deg, rgb(250, 250, 167), rgb(75, 186, 75));
+        --container-text-color: #000;
+    }
+    .crops{
+      font-size:25px;
+    }
+                
+    </style>
+
+    <style>
+      body { font-family: Arial, sans-serif; }
+      .product-container { display: flex; gap: 20px; }
+      .product { padding: 20px; background: #f2f2f2; cursor: pointer; border-radius: 5px; }
+      #chatbox { display: none; border: 1px solid #ddd; padding: 10px; width: 300px; }
+      #messages { height: 200px; overflow-y: auto; border-bottom: 1px solid #ddd; margin-bottom: 10px; }
+      input { width: 100%; padding: 5px; }
+  </style>
+  
+</head>
+<body>
+  <div id="progressBar"></div>
+  <script src="/Scrollbar/scrollbar.js"></script>
+  <header class="header">
+    <img src="../icon.png" alt="logo" style="height: 50px; width: 50px; margin-right: 10px;" />
+    <a href="#" class="logo" style="margin-inline-end: auto"><h3>Rootchain</h3></a>
+    <a>
+      <div class="theme-toggle">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+      </div>
+    </a>
+    <i class="bx bx-menu" id="menu-icon"></i>
+    <nav class="navbar">
+      <a href="../index.html#home" class="active content"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="../about/about.html"><i class="fa-solid fa-circle-info"></i> About</a>
+      <a href="../Learn/Learnpage.html" target="_self"><i class="fa-solid fa-blog"></i> Learn</a>
+      <a href="../Trade/Trade.html" target="_self"><i class="fa-solid fa-blog"></i> Trade</a>
+      <a href="../Resouce_Library.html"><i class="fa-solid fa-book"></i> Resource Library</a>
+      <a href="../FAQS/faqpage.html" target="_self"><i class="fas fa-question-circle"></i> FAQs</a>
+      <a href="../Contact.html" id="nav--contact"><i class="fa-solid fa-phone"></i> Contact</a>
+      <a href="../login/login.html"><button id="log-in-btn" class="login-btn">Login</button></a>
+    </nav>
+  </header>
+
+  <div class="product-container"> 
+    <div class="product-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiF0lZfLm35HmQdqGPhVNOHPoMamlER4nnnA&s" 
+             alt="Crop Image 1" class="product-image">
+        <div class="product-details">
+            <b class="crops">Rice</b>
+            <p class="product-description">Rice is a staple food that is widely consumed across the world. It is rich in carbohydrates and provides essential energy.</p>
+        </div>
+        <a href="/Communication/Communication.html" class="info-button">Click here to know more</a>
+    </div>
+
+    <div class="product-item">
+        <img src="https://media.istockphoto.com/id/1061097354/photo/the-corn-plant-in-the-field.jpg?s=612x612&w=0&k=20&c=NEEzE5il-up8g7NZj_7HJUpyVep18zBRfhnMZ5laLiQ=" 
+             alt="Crop Image 2" class="product-image">
+        <div class="product-details">
+            <b class="crops">Corn</b>
+            <p class="product-description">Corn is a versatile grain used for food, animal feed, and biofuel production. It is rich in fiber and vitamins.</p>
+        </div>
+        <a href="/Communication/Communication.html" class="info-button">Click here to know more</a>
+    </div>
+
+    <div class="product-item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Vehn%C3%A4pelto_6.jpg" 
+             alt="Crop Image 3" class="product-image">
+        <div class="product-details">
+            <b class="crops">Wheat</b>
+            <p class="product-description">Wheat is a major grain used in bread, pasta, and cereals. It is a great source of protein and dietary fiber.</p>
+        </div>
+        <a href="/Communication/Communication.html" class="info-button">Click here to know more</a>
+    </div>
+
+        <div class="product-item">
+          <img src="https://t3.ftcdn.net/jpg/09/84/03/92/360_F_984039221_GOskcGW2icdscpB8a84jPBhz6x9INoEL.jpg" 
+               alt="Crop Image 4" class="product-image">
+          <div class="product-details">
+              <b class="crops">Sugarcane</b>
+              <p class="product-description">Sugarcane is a key cash crop in India, primarily used for sugar production, jaggery, and ethanol.</p>
+          </div>
+          <a href="/Communication/Communication.html" class="info-button">Click here to know more</a>
+      </div>
+
+      <div class="product-item">
+          <img src="https://www.octavius.in/cdn/shop/articles/The_journey_of_a_tea_leaf_From_farm_to_cup.jpg?v=1693027986" 
+               alt="Crop Image 5" class="product-image">
+          <div class="product-details">
+              <b class="crops">Tea</b>
+              <p class="product-description">India is one of the largest producers of tea, mainly grown in Assam, Darjeeling, and Nilgiri regions.</p>
+          </div>
+          <a href="/Communication/Communication.html" class="info-button">Click here to know more</a>
+      </div>
+
+      <div class="product-item">
+          <img src="https://t4.ftcdn.net/jpg/06/84/31/79/360_F_684317966_Pn9qU1DEfW5zpwoj25znJ1i0VdaOM2Px.jpg" 
+               alt="Crop Image 6" class="product-image">
+          <div class="product-details">
+              <b class="crops">Cotton</b>
+              <p class="product-description">Cotton is a crucial fiber crop used in textiles and is widely grown in Maharashtra and Gujarat.</p>
+          </div>
+          <a href="/Communication/Communication.html" class="info-button">Click here to know more</a>
+      </div>
+
+      <div class="product-item">
+          <img src="https://kandrafoods.com/wp-content/uploads/2022/12/mustard-seeds-min-scaled.jpeg" 
+               alt="Crop Image 7" class="product-image">
+          <div class="product-details">
+              <b class="crops">Mustard</b>
+              <p class="product-description">Mustard seeds are used for oil extraction and spice production, widely cultivated in Rajasthan and Punjab.</p>
+          </div>
+          <a href="/Communication/Communication.html" class="info-button">Click here to know more</a>
+      </div>
+
+      <div class="product-item">
+          <img src="https://info.ehl.edu/hubfs/EHL-Passugg_Blog_Kurkuma_Titelbild_001.jpg" 
+               alt="Crop Image 8" class="product-image">
+          <div class="product-details">
+              <b class="crops">Turmeric</b>
+              <p class="product-description">Turmeric is a medicinal spice known for its anti-inflammatory properties, primarily grown in Telangana and Tamil Nadu.</p>
+          </div>
+          <a href="/Communication/Communication.html" class="info-button">Click here to know more</a>
+      </div>
+
+      <div class="product-item">
+        <img src="https://jkagri.com/wp-content/uploads/2020/10/Jowar1.jpg" 
+             alt="Jowar Image" class="product-image">
+        <div class="product-details">
+            <b class="crops">Jowar</b>
+            <p class="product-description">Jowar (sorghum) is a staple millet crop in India, widely grown in Maharashtra and Karnataka. It is rich in fiber and proteins.</p>
+        </div>
+        <a href="/Communication/Communication.html" class="info-button">Click here to know more</a>
+    </div>
+ 
+      <div class="product-item">
+        <img src="https://seed2plant.in/cdn/shop/files/CashewNut_KajuPlant_Anacardiumoccidentale_FruitLivePlant-Seed2Plant-1.png?v=1712806220" 
+             alt="Crop Image 19" class="product-image">
+        <div class="product-details">
+            <b class="crops">Cashew</b>
+            <p class="product-description">Cashew is a commercial crop grown for nuts, mainly cultivated in Goa, Kerala, and Maharashtra.</p>
+        </div>
+        <a href="/Communication/Communication.html" class="info-button">Click here to know more</a>
+    </div>
+
+    <div class="product-item">
+      <img src="https://cdn.wikifarmer.com/images/thumbnail/2023/04/Banana-Crop-History-Nutritional-Value-and-Health-Benefits-1200x630.jpg" 
+           alt="Crop Image 11" class="product-image">
+      <div class="product-details">
+          <b class="crops">Banana</b>
+          <p class="product-description">Banana is a major fruit crop of India, widely cultivated in Tamil Nadu, Maharashtra, and Kerala.</p>
+      </div>
+      <a href="/Communication/Communication.html" class="info-button">Click here to know more</a>
+  </div>
+
+  <div class="product-item">
+      <img src="https://coffeelounge.delonghi.com/wp-content/uploads/2021/01/hero-scaled.jpg" 
+           alt="Crop Image 12" class="product-image">
+      <div class="product-details">
+          <b class="crops">Coffee</b>
+          <p class="product-description">India is known for its premium coffee production, especially in Karnataka, Kerala, and Tamil Nadu.</p>
+      </div>
+      <a href="/Communication/Communication.html" class="info-button">Click here to know more</a>
+  </div>
+
+  <div class="product-item">
+      <img src="https://cdn.shopify.com/s/files/1/0629/8576/5122/files/jute-a-natural-fiber-commonly-known-as-burlap.jpg" 
+           alt="Crop Image 13" class="product-image">
+      <div class="product-details">
+          <b class="crops">Jute</b>
+          <p class="product-description">Jute is a fiber crop used for making bags, ropes, and textiles, mainly grown in West Bengal and Assam.</p>
+      </div>
+      <a href="/Communication/Communication.html" class="info-button">Click here to know more</a>
+  </div>
+
+  <div class="product-item">
+      <img src="https://www.zettafarms.com/wp-content/uploads/2024/01/blog-3.jpg" 
+           alt="Crop Image 14" class="product-image">
+      <div class="product-details">
+          <b class="crops">Groundnut</b>
+          <p class="product-description">Groundnut is an oilseed crop rich in protein and oil, widely cultivated in Gujarat and Andhra Pradesh.</p>
+      </div>
+      <a href="/Communication/Communication.html" class="info-button">Click here to know more</a>
+  </div>
+
+  <div class="product-item">
+      <img src="https://plantura.garden/uk/wp-content/uploads/sites/2/2021/10/early-soybean.jpg" 
+           alt="Crop Image 15" class="product-image">
+      <div class="product-details">
+          <b class="crops">Soybean</b>
+          <p class="product-description">Soybean is a significant oilseed crop used for oil extraction and animal feed, mainly grown in Madhya Pradesh.</p>
+      </div>
+      <a href="/Communication/Communication.html" class="info-button">Click here to know more</a>
+  </div>
+
+  <div class="product-item">
+      <img src="https://plus.unsplash.com/premium_photo-1700124162812-1d5d29087b81?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3VuZmxvd2VyJTIwd2FsbHBhcGVyfGVufDB8fDB8fHww" 
+           alt="Crop Image 16" class="product-image">
+      <div class="product-details">
+          <b class="crops">Sunflower</b>
+          <p class="product-description">Sunflower is an important oilseed crop, known for its edible oil, grown in Karnataka and Andhra Pradesh.</p>
+      </div>
+      <a href="/Communication/Communication.html" class="info-button">Click here to know more</a>
+  </div>
+
+  <div class="product-item">
+      <img src="https://m.media-amazon.com/images/I/81L-ZHJCo7L.jpg" 
+           alt="Crop Image 17" class="product-image">
+      <div class="product-details">
+          <b class="crops">Saffron</b>
+          <p class="product-description">Saffron is a rare and valuable spice, primarily grown in the Kashmir Valley of India.</p>
+      </div>
+      <a href="/Communication/Communication.html" class="info-button">Click here to know more</a>
+  </div>
+
+  <div class="product-item">
+      <img src="https://images.squarespace-cdn.com/content/v1/5c1074accc8fed6a4251da8f/1632825358284-7LGGMHZO98Q9L3FWUSKC/Coconut+Tree" 
+           alt="Crop Image 18" class="product-image">
+      <div class="product-details">
+          <b class="crops">Coconut</b>
+          <p class="product-description">Coconut is a versatile crop used for oil, food, and coir, mainly cultivated in Kerala, Tamil Nadu, and Karnataka.</p>
+      </div>
+      <a href="/Communication/Communication.html" class="info-button">Click here to know more</a>
+  </div>
+
+</div>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-title">
+        <h2>Rootchain</h2>
+      </div>
+      <div class="footer-icons">
+        <p><b>Follow us on our socials:</b></p>
+        <div class="socialIcons">
+          <a
+            id="mail"
+            href="mailto:Rootchain215@gmail.com"
+            class="email-link"
+            data-tooltip="Rootchain215@gmail.com"
+            ><i class="fas fa-envelope"></i
+          ></a>
+          <a
+            id="inst"
+            href="https://www.instagram.com/your_username_here"
+            target="_blank"
+            ><i class="fab fa-instagram"></i
+          ></a>
+          <a
+            id="twit"
+            href="https://twitter.com/your_username_here"
+            target="_blank"
+            ><i class="fa-brands fa-x-twitter"></i
+          ></a>
+          <a
+            id="fb"
+            href="https://www.facebook.com/your_page_or_profile_here"
+            target="_blank"
+            ><i class="fab fa-facebook"></i
+          ></a>
+        </div>
+      </div>
+    </div>
+    <div class="quick-links">
+      <h2>Quick Links</h2>
+      <ul>
+        <li>
+          <a href="./index.html"><p>Home</p></a>
+        </li>
+        <li>
+          <a href="./about/about.html"><p>About Us</p></a>
+        </li>
+        <li>
+          <a href="./Learn/Learnpage.html"><p>Learn</p></a>
+        </li>
+        <li>
+          <a href="./FAQS/faqpage.html"><p>FAQs</p></a>
+        </li>
+        <li>
+          <a href="../Resouce_Library.html"><p>Resource Library</p></a>
+        </li>
+        <li>
+          <a href="../Contact.html"><p>Contact Us</p></a>
+        </li>
+      </ul>
+    </div>
+    <div class="footer-text footer-right">
+      <p style="font-weight: 600; font-size: 15px">
+        Copyright &copy;
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        by Rootchain | All Rights Reserved
+        <span class="legal-page"
+          ><a href="../Conditions/termsandconditions.html"
+            >| Terms and Conditions</a
+          ></span
+        >
+        <span class="legal-page"
+          ><a href="../Conditions/privacypolicy.html"
+            >| Privacy Policy</a
+          ></span
+        >
+      </p>
+    </div>
+  </footer>
+  <div id="backtoTop">
+    <a href="#"><i class="bx bx-up-arrow-alt"></i></a>
+  </div>
+  <div class="cursor"></div>
+  <div class="cursor2"></div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const themeToggle = document.querySelector('.theme-toggle');
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+
+        if (currentTheme) {
+            document.body.classList.add(currentTheme);
+        }
+
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+            let theme = 'light';
+            if (document.body.classList.contains('dark-theme')) {
+                theme = 'dark';
+            }
+            localStorage.setItem('theme', theme);
+        });
+    });
+  </script>
+  <script>
+    var cursor = document.querySelector(".cursor");
+    var cursor2 = document.querySelector(".cursor2");
+    document.addEventListener("mousemove",function(e){
+      cursor.style.cssText = cursor2.style.cssText = "left: " + e.clientX + "px; top: " + e.clientY + "px;";
+    });
+  </script>
+  <script>
+    window.addEventListener("scroll", function () {
+      var scrollPosition = window.scrollY;
+      var backToTopButton = document.getElementById("backtoTop");
+
+      if (scrollPosition > 300) {
+        // Adjust this value as needed to show the button at the desired scroll position
+        backToTopButton.style.display = "block";
+      } else {
+        backToTopButton.style.display = "none";
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const slideGroup = document.querySelector(".slide_group");
+      let currentSlide = 0;
+      const images = [
+        "./images/carousel-img-2.jpg",
+        "./images/carousel-img-1.jpg",
+        "./images/carousel-img-3.jpg",
+        "./images/carousel-img-4.jpg",
+      ];
+
+      function showSlide(n) {
+        slideGroup.style.left = `${-n * 100}%`; // Adjust left property based on current slide
+        currentSlide = n;
+      }
+
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % images.length; // Move to the next slide
+        showSlide(currentSlide);
+      }
+
+      setInterval(nextSlide, 2000); // Automatically change slide every 2 seconds
+
+      // Preload images for smoother transition
+      images.forEach((src) => {
+        const img = new Image();
+        img.src = src;
+      });
+    });
+
+  </script>
+  <script src="../logout.js"></script>
+</body>
+</html>
+
+

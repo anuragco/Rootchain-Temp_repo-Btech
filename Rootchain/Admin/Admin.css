@@ -1,0 +1,142 @@
+/* General Styles */
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #e8f5e9; /* Light green background */
+    color: #2e7d32; /* Dark green text */
+    margin: 0;
+    padding: 0;
+    background-image: url('./images/agriculture-background.jpg'); /* Background image */
+    background-size: cover; /* Cover the entire background */
+    background-position: center; /* Center the background image */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    background-color: rgba(46, 125, 50, 0.9); /* Semi-transparent dark green */
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff; /* White text for logo */
+}
+
+.navbar {
+    display: flex;
+}
+
+.navbar a {
+    color: #fff; /* White text for navbar links */
+    margin: 0 1.5rem;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+    text-decoration: none; /* Remove underline */
+}
+
+.navbar a:hover {
+    color: #cddc39; /* Light green on hover */
+}
+
+main {
+    padding: 2rem;
+    flex: 1; /* Allow main to grow */
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #cddc39; /* Light green for headings */
+}
+
+/* Card Styles */
+.cards {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.9); /* White background for cards */
+    color: #2e7d32; /* Dark green text */
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(25% - 1rem); /* Responsive card width */
+    margin: 0.5rem; /* Space between cards */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.card p {
+    font-size: 1.5rem;
+}
+
+/* Table Styles */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+}
+
+.user-table th, .user-table td {
+    padding: 1rem;
+    border: 1px solid #cddc39; /* Light green border */
+    text-align: left;
+}
+
+.user-table th {
+    background: #2e7d32; /* Dark green header */
+    color: #fff; /* White text for header */
+}
+
+.user-table tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.1); /* Light background for even rows */
+}
+
+/* Button Styles */
+.btn {
+    background: #2e7d32; /* Dark green button */
+    color: #fff; /* White text */
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #cddc39; /* Light green on hover */
+}
+
+/* Footer Styles */
+.footer {
+    background: rgba(46, 125, 50, 0.9); /* Semi-transparent dark green */
+    color: #fff; /* White text */
+    text-align: center;
+    padding: 1.5rem 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer p {
+    font-size: 1.6rem;
+}
+

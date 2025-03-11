@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Rootchain</title>
+    <script
+      src="https://kit.fontawesome.com/f2e55912f8.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="./login.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="../icon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../cursor/style.css" />
+    <link rel="stylesheet" href="../Scrollbar/scrollbar.css" />
+  </head>
+  <body>
+    <div id="progressBar"></div>
+    <script src="../Scrollbar/scrollbar.js"></script>
+    <header class="header">
+      <img
+        src="../icon.png"
+        alt="logo"
+        style="height: 50px; width: 50px; margin-right: 10px"
+      />
+      <a href="#" class="logo" style="margin-inline-end: auto"
+        ><h3>Rootchain</h3></a
+      >
+      <i class="bx bx-menu" id="menu-icon"></i>
+      <nav class="navbar">
+        <a href="../index.html" class="active"
+          ><i class="fa-solid fa-house"></i> Home</a
+        >
+        <a href="../about/about.html"
+          ><i class="fa-solid fa-circle-info"></i> About</a
+        >
+        <a href="../Learn/Learnpage.html" target="_self"
+          ><i class="fa-solid fa-blog"></i> Learn</a
+        >
+        <a href="./Trade/Trade.html" target="_self">
+          <i class="fa-solid fa-blog"></i> Trade</a
+        >
+        <a href="../Resouce_Library.html"
+          ><i class="fa-solid fa-book"></i> Resource Library</a
+        >
+        <a href="../FAQS/faqpage.html" target="_self"
+          ><i class="fas fa-question-circle"></i> FAQ</a
+        >
+        <a href="../Contact.html" id="nav--contact"
+          ><i class="fa-solid fa-phone"></i> Contact</a
+        >
+      </nav>
+    </header>
+
+    <div class="container" id="container" style="margin-top: 100px">
+      <div class="buyer-section">
+        <div class="section-header">
+          <h1>Are you a Buyer?</h1>
+        </div>
+        <a href="/Rootchain\Buyer_login\Buyer_login.html">
+          <button type="button">Click here</button>
+        </a>
+      </div>
+    
+      <div class="seller-section">
+        <div class="section-header">
+          <h1>Are you a Seller?</h1>
+        </div>
+        <a href="/Rootchain/Seller_login/Seller_login.html">
+          <button type="button">Click here</button>
+        </a>
+      </div>
+    </div>
+    
+    <footer class="footer">
+      <div class="footer-grid">
+        <div class="footer-title"><h2>Rootchain</h2></div>
+        <div class="footer-icons">
+          <p><b>Follow us on our socials:</b></p>
+          <div class="socialIcons">
+            <a
+              id="mail"
+              href="mailto:Rootchain215@gmail.com"
+              class="email-link"
+              data-tooltip="Rootchain215@gmail.com"
+              ><i class="fas fa-envelope"></i
+            ></a>
+            <a
+              id="inst"
+              href="https://www.instagram.com/your_username_here"
+              target="_blank"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a
+              id="twit"
+              href="https://twitter.com/your_username_here"
+              target="_blank"
+              ><i class="fa-brands fa-x-twitter"></i
+            ></a>
+            <a
+              id="fb"
+              href="https://www.facebook.com/your_page_or_profile_here"
+              target="_blank"
+              ><i class="fab fa-facebook"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+      <div class="quick-links">
+        <h2>Quick Links</h2>
+        <ul>
+          <li>
+            <a href="../index.html"><p>Home</p></a>
+          </li>
+          <li>
+            <a href="../about/about.html"><p>About Us</p></a>
+          </li>
+          <li>
+            <a href="../Learn/Learnpage.html"><p>Learn</p></a>
+          </li>
+          <li>
+            <a href="../Resouce_Library.html"><p>Resource Library</p></a>
+          </li>
+          <li>
+            <a href="../Contact.html"><p>Contact Us</p></a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-text footer-right">
+        <p style="font-weight: 600; font-size: 15px">
+          Copyright &copy;
+          <script>
+            document.write(new Date().getFullYear());
+          </script>
+          by Rootchain | All Rights Reserved.
+          <span class="legal-page"
+            ><a href="../Conditions/termsandconditions.html"
+              >| Terms and Conditions</a
+            ></span
+          >
+          <span class="legal-page"
+            ><a href="../Conditions/privacypolicy.html"
+              >| Privacy Policy</a
+            ></span
+          >
+        </p>
+      </div>
+      <div class="cursor"></div>
+      <div class="cursor2"></div>
+    </footer>
+    <script src="./login.js"></script>
+    <script src="../script.js"></script>
+    <script>
+      var cursor = document.querySelector(".cursor");
+      var cursor2 = document.querySelector(".cursor2");
+      document.addEventListener("mousemove", function (e) {
+        cursor.style.cssText = cursor2.style.cssText =
+          "left: " + e.clientX + "px; top: " + e.clientY + "px;";
+      });
+    </script>
+  </body>
+</html>
