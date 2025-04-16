@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - Rootchain</title>
+    <title>Communication - Rootchain</title>
    
     <link rel="icon" href="../icon.png" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="../style.css" />
     <link rel="stylesheet" href="https://unpkg.com/boxicons/css/boxicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../cursor/style.css">
-    <link rel="stylesheet" href="./Communication.css">
+    <link rel="stylesheet" href="/Communication/Communication.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <script src="https://kit.fontawesome.com/b08b6de27e.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7972082263222296" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./cursor/style.css">
     <link rel="stylesheet" href="/Scrollbar/scrollbar.css">
     <style>
@@ -91,27 +90,48 @@
   </header>
   
   <div class="chat-container">
-    <div class="chat-header">
-        <h2>Chat with Buyer-Seller</h2>
-    </div>
-    <div class="chat-box" id="chat-box">
-        <!-- Example messages -->
-        <div class="message seller">Hello! How can I assist you?</div>
-        <div class="message buyer">Hi! I want to know about product availability.</div>
+    <!-- User Introduction Step -->
+    <div id="user-intro" class="step">
+        <label for="username"><b>Enter your name :</b></label>
+        <input type="text" id="username" required><br>
+        <button id="submit-name" class="action-button">Submit</button>
     </div>
 
-    <div class="chat-input">
-        <input type="text" id="message-input" placeholder="Type your message...">
-        
-        <!-- File Upload Button -->
-        <label for="file-upload" class="file-upload-label">
-            <i class="fas fa-paperclip"></i>
-        </label>
-        <input type="file" id="file-upload" class="file-input" accept="image/*, .pdf, .doc, .docx">
-        
-        <button id="send-button">Send</button>
+    <!-- User Role Selection Step -->
+    <div id="user-role" class="step" style="display: none;">
+        <label for="role"><b>Select your role as a :</b></label>
+        <select id="role" required>
+            <option value="">Select Role</option>
+            <option value="Buyer">Buyer</option>
+            <option value="Seller">Seller</option>
+        </select><br>
+        <button id="submit-role" class="action-button">Next</button>
+    </div>
+
+    <!-- Chat Interface Step -->
+    <div id="chat-interface" class="step" style="display: none;">
+        <div class="chat-header">
+            <h2>Chat with Buyer-Seller</h2>
+            <button id="new-chat" class="action-button">Start a New Chat</button>
+        </div>
+        <div class="chat-box" id="chat-box"></div>
+        <div class="chat-input">
+            <input type="text" id="message-input" placeholder="Type your message..." autocomplete="off">
+            <label for="file-upload" class="file-upload-label">
+                <i class="fas fa-paperclip"></i>
+            </label>
+            <input type="file" id="file-upload" class="file-input" accept="image/*,application/pdf,.doc,.docx">
+            <button id="send-button" class="action-button">Send</button>
+        </div>
     </div>
 </div>
+
+<!-- ✅ Correct Path for CSS -->
+<link rel="stylesheet" href="Communication.css">
+
+<!-- ✅ Correct Path for JavaScript -->
+<script src="script.js" defer></script>
+
 
 </div>
   <footer class="footer">
@@ -269,6 +289,89 @@
       });
     });
   </script>
+
+<script>
+ document.addEventListener("DOMContentLoaded", () => {
+    const userIntro = document.getElementById("user-intro");
+    const userRole = document.getElementById("user-role");
+    const chatInterface = document.getElementById("chat-interface");
+
+    const usernameInput = document.getElementById("username");
+    const roleSelect = document.getElementById("role");
+
+    const submitNameButton = document.getElementById("submit-name");
+    const submitRoleButton = document.getElementById("submit-role");
+    const sendButton = document.getElementById("send-button");
+    const messageInput = document.getElementById("message-input");
+    const chatBox = document.getElementById("chat-box");
+
+    // Handle user name submission
+    submitNameButton.addEventListener("click", () => {
+        if (usernameInput.value.trim()) {
+            userIntro.style.display = "none";
+            userRole.style.display = "block";
+        } else {
+            alert("Please enter your name.");
+        }
+    });
+
+    // Handle role selection submission
+    submitRoleButton.addEventListener("click", () => {
+        if (roleSelect.value) {
+            userRole.style.display = "none";
+            chatInterface.style.display = "block";
+        } else {
+            alert("Please select your role.");
+        }
+    });
+
+    // Handle sending messages
+    sendButton.addEventListener("click", () => {
+        const message = messageInput.value.trim();
+        if (message) {
+            const messageClass = roleSelect.value === "buyer" ? "buyer" : "seller";
+            const messageElement = document.createElement("div");
+            messageElement.classList.add("message", messageClass);
+            messageElement.textContent = message;
+            chatBox.appendChild(messageElement);
+            messageInput.value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    });
+
+    document.getElementById("send-button").addEventListener("click", function () {
+    let chatBox = document.getElementById("chat-box");
+    let messageInput = document.getElementById("message-input");
+
+    if (messageInput.value.trim() !== "") {
+        // Create new message element
+        let messageDiv = document.createElement("div");
+        messageDiv.classList.add("message", "buyer"); // Assuming it's a buyer message
+        messageDiv.textContent = messageInput.value;
+        
+        // Append the message
+        chatBox.appendChild(messageDiv);
+
+        // Auto-scroll to bottom only when sending a message
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        // Clear input field
+        messageInput.value = "";
+    }
+});
+
+
+    // Handle file uploads
+    document.getElementById("file-upload").addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            console.log(`File selected: ${file.name}`);
+        }
+    });
+});
+
+</script>
+
   <script src="../logout.js"></script>
 </body>
 </html>

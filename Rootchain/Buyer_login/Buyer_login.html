@@ -262,29 +262,31 @@
     const password = document.getElementById("signin-password").value;
 
     try {
-      const response = await fetch("http://localhost:3000/api/v1/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+        const response = await fetch("http://localhost:3000/api/v1/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+        });
 
-      const data = await response.json();
-      if (response.ok) {
-        document.getElementById("signin-banner-text").innerText = "Login successful!";
-        document.getElementById("signin-success-banner").style.display = "block";
-        localStorage.setItem("session_id", data.authToken);
-        setTimeout(() => {
-          document.getElementById("signin-success-banner").style.display = "none";
-          window.location.href = "/Rootchain"; 
-        }, 2000);
-      } else {
-        alert(data.message || "Login failed");
-      }
+        if (response.ok) {
+            const data = await response.json();
+            document.getElementById("signin-banner-text").innerText = "Login successful!";
+            document.getElementById("signin-success-banner").style.display = "block";
+            localStorage.setItem("session_id", data.authToken);
+            localStorage.setItem("user_type", data.user_type);
+            setTimeout(() => {
+                document.getElementById("signin-success-banner").style.display = "none";
+                window.location.href = "/Rootchain"; 
+            }, 2000);
+        } else {
+            const errorData = await response.json();
+            alert(errorData.error || "Login failed"); // error key is used in your backend
+        }
     } catch (error) {
-      console.error("Login Error:", error);
-      alert("Error occurred. Please try again.");
+        console.error("Login Error:", error);
+        alert("Error occurred. Please try again.");
     }
-  });
+});
 
   document.getElementById("signup-form").addEventListener("submit", async function (event) {
     event.preventDefault();
@@ -293,6 +295,20 @@
     const email = document.getElementById("signup-email").value;
     const password = document.getElementById("signup-password").value;
     const confirmPassword = document.getElementById("signup-confirm-password").value;
+
+    // Determine user_type from the URL
+    const currentURL = window.location.href.toLowerCase();
+    let user_type = "";
+
+    if (currentURL.includes("seller_login")) {
+        user_type = "seller";
+    } else if (currentURL.includes("buyer_login")) {
+        user_type = "buyer";
+    } else {
+        document.getElementById("signup-banner-text").innerText = "Invalid signup page type (must be seller or buyer)";
+        document.getElementById("signup-success-banner").style.display = "block";
+        return;
+    }
 
     if (password !== confirmPassword) {
         document.getElementById("signup-password-match-error").style.display = "block";
@@ -305,7 +321,7 @@
         const response = await fetch("http://localhost:3000/api/v1/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ fullname, email, password }),
+            body: JSON.stringify({ fullname, email, password, user_type }),
         });
 
         if (!response.ok) {
@@ -318,12 +334,12 @@
         document.getElementById("signup-banner-text").innerText = "Signed up successfully!";
         document.getElementById("signup-success-banner").style.display = "block";
 
-        
+        // Clear form
         document.getElementById("signup-name").value = "";
         document.getElementById("signup-email").value = "";
         document.getElementById("signup-password").value = "";
         document.getElementById("signup-confirm-password").value = "";
-        
+
     } catch (error) {
         console.error("Error during signup:", error);
         document.getElementById("signup-banner-text").innerText = "Signup failed. Please try again.";
@@ -331,7 +347,8 @@
     }
 });
 
-</script>
 
+</script>
+<script src="../hidepages.js"></script>
   </body>
 </html>

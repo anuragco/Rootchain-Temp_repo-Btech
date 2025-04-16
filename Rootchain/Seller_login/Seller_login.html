@@ -50,6 +50,9 @@
         <a href="../FAQS/faqpage.html" target="_self"
           ><i class="fas fa-question-circle"></i> FAQ</a
         >
+        <a href="./Upload/Upload.html" id="nav--contact"
+        ><i class="fa-solid fa-blog"></i> Upload Crops</a
+      >
         <a href="../Contact.html" id="nav--contact"
           ><i class="fa-solid fa-phone"></i> Contact</a
         >
@@ -255,35 +258,38 @@
     </script>
     <script>
       document.getElementById("signin-form").addEventListener("submit", async function (event) {
-        event.preventDefault();
-    
-        const email = document.getElementById("signin-email").value;
-        const password = document.getElementById("signin-password").value;
-    
-        try {
-          const response = await fetch("http://localhost:3000/api/v1/login", {
+    event.preventDefault();
+
+    const email = document.getElementById("signin-email").value;
+    const password = document.getElementById("signin-password").value;
+
+    try {
+        const response = await fetch("http://localhost:3000/api/v1/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
-          });
-    
-          const data = await response.json();
-          if (response.ok) {
+        });
+
+        if (response.ok) {
+            const data = await response.json();
             document.getElementById("signin-banner-text").innerText = "Login successful!";
             document.getElementById("signin-success-banner").style.display = "block";
             localStorage.setItem("session_id", data.authToken);
+            localStorage.setItem("user_type", data.user_type);
             setTimeout(() => {
-              document.getElementById("signin-success-banner").style.display = "none";
-              window.location.href = "/Rootchain"; 
+                document.getElementById("signin-success-banner").style.display = "none";
+                window.location.href = "/Rootchain"; 
             }, 2000);
-          } else {
-            alert(data.message || "Login failed");
-          }
-        } catch (error) {
-          console.error("Login Error:", error);
-          alert("Error occurred. Please try again.");
+        } else {
+            const errorData = await response.json();
+            alert(errorData.error || "Login failed"); // error key is used in your backend
         }
-      });
+    } catch (error) {
+        console.error("Login Error:", error);
+        alert("Error occurred. Please try again.");
+    }
+});
+
     
       document.getElementById("signup-form").addEventListener("submit", async function (event) {
         event.preventDefault();
@@ -331,5 +337,6 @@
     });
     
     </script>
+    <script src="../hidepages.js"></script>
   </body>
 </html>

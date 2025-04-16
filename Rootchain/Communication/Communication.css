@@ -237,129 +237,263 @@ body.dark-theme .card .img img {
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
+/* Chat container */
 .chat-container {
-    max-width: 500px;
-    width: 100%;
-    margin: 30px auto;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #ffffff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    font-family: "Poppins", sans-serif;
-    display: flex;
-    flex-direction: column;
+  width: 500px;
+  height: 600px;
+  margin: 30px auto;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Center all content */
+  padding: 20px;
+  transition: all 0.3s ease; /* Smooth transition */
+  position: relative;
 }
 
+/* Chat Header */
 .chat-header {
-    background: #0a7035;
-    color: #fff;
-    padding: 15px;
-    text-align: center;
-    font-size: 1.2rem;
-    font-weight: 600;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #026a2b; /* Dark green background */
+  color: white;
+  display: flex;
+  justify-content: space-between; /* Space out heading and button */
+  align-items: center;
+  padding: 15px 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Ensures the title remains aligned */
+.chat-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+/* Styles for the new chat button */
+#new-chat {
+  background: white;
+  color: #001a0a;
+  border: none;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#new-chat:hover {
+  background: #f0f0f0;
+}
+
+
+/* Expanding chat container to full screen */
+.chat-container.fullscreen {
+  width: 100%;
+  height: 100vh;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  margin: 0;
+  justify-content: flex-start; /* Align to the top in fullscreen mode */
+}
+
+/* Center the input field inside chat-container */
+.step {
+  text-align: center;
+  width: 100%;
+}
+
+label {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  display: block;
+}
+
+input[type="text"], select {
+  width: 80%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Green Submit & Next buttons */
+.action-button, .next-button {
+  background: #028b3b !important;
+  border: none;
+  padding: 12px 18px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s ease;
+  outline: none;
+}
+
+.action-button:hover, .next-button:hover {
+  background: #026a2b !important;
+}
+
+/* Chat interface expands fully inside container */
 .chat-box {
-    height: 300px;
-    overflow-y: auto;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    background: #f9f9f9;
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  width: 100%;  
 }
 
+#chat-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 10px;
+}
+
+/* ✅ Messages sent by the current user (Right side, Green) */
+.sent-message {
+  background-color: lightgreen;
+  color: black;
+  padding: 8px;
+  border-radius: 10px;
+  margin: 5px;
+  text-align: right;
+  align-self: flex-end; /* ✅ Move to right */
+  max-width: 60%;
+}
+
+/* ✅ Messages received from others (Left side, Blue) */
+.received-message {
+  background-color: lightblue;
+  color: black;
+  padding: 8px;
+  border-radius: 10px;
+  margin: 5px;
+  text-align: left;
+  align-self: flex-start; /* ✅ Move to left */
+  max-width: 60%;
+}
+
+
+/* Fullscreen chat appearance */
+.chat-box.fullscreen {
+  background: transparent !important;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+/* Chat Input Section */
+.chat-input {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Message Input Field */
+#message-input {
+  flex: 1; /* Takes up full width */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.chat-input.fullscreen {
+  width: 100%;
+  padding: 10px;
+}
+
+/* Style for messages */
 .message {
-    max-width: 70%;
-    padding: 10px 15px;
-    margin: 5px 0;
-    border-radius: 15px;
-    font-size: 0.9rem;
-    word-wrap: break-word;
+  max-width: 70%;
+  padding: 10px 15px;
+  margin: 5px 0;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  word-wrap: break-word;
 }
 
 .seller {
-    align-self: flex-start;
-    background: #028b3b;
-    color: white;
+  align-self: flex-start;
+  background: #028b3b;
+  color: white;
 }
 
 .buyer {
-    align-self: flex-end;
-    background: #0078ff;
-    color: white;
+  align-self: flex-end;
+  background: #0078ff;
+  color: white;
 }
 
-.chat-input {
-    display: flex;
-    border-top: 1px solid #ddd;
-    padding: 10px;
-    background: white;
-    align-items: center;
-}
-
-.chat-input input {
-    flex: 1;
-    padding: 12px;
-    border: none;
-    outline: none;
-    font-size: 1rem;
-    border-radius: 6px;
-    background: #f1f1f1;
-}
-
-.chat-input button {
-    margin-left: 10px;
-    background: #028b3b;
-    color: white;
-    border: none;
-    padding: 12px 18px;
-    font-size: 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.chat-input button:hover {
-    background: #026a2b;
-}
-
-/* File Upload Styling */
-.file-input {
-    display: none;
-}
-
+/* File Upload Icon */
 .file-upload-label {
-    margin: 0 10px;
-    cursor: pointer;
-    font-size: 1.3rem;
-    color: #555;
-    transition: color 0.3s;
+  margin-left: 10px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #555;
 }
 
-.file-upload-label:hover {
-    color: #028b3b;
+/* Hidden file input */
+.file-input {
+  display: none;
 }
 
-/* Responsive Design */
+/* Send Button */
+#send-button {
+  margin-left: 10px;
+  padding: 10px 15px;
+  background: #028b3b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#send-button:hover {
+  background: #026a2b;
+}
+
+/* Responsive adjustments */
 @media (max-width: 600px) {
-    .chat-container {
-        max-width: 90%;
-    }
+  .chat-container {
+      width: 90%;
+      height: auto;
+  }
 
-    .chat-header {
-        font-size: 1rem;
-    }
+  .chat-header {
+      font-size: 1rem;
+  }
 
-    .chat-input input {
-        font-size: 0.9rem;
-    }
+  .chat-input input {
+      font-size: 0.9rem;
+  }
 
-    .chat-input button {
-        font-size: 0.9rem;
-        padding: 10px 15px;
-    }
-
-    .file-upload-label {
-        font-size: 1.1rem;
-    }
+  .action-button, .next-button {
+      font-size: 0.9rem;
+      padding: 10px 15px;
+  }
 }
-

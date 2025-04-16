@@ -76,7 +76,7 @@ document.getElementById("signup-form").addEventListener("submit", (e) => {
 // Handle sign-in form submission
 document.getElementById("signin-form").addEventListener("submit", (e) => {
   e.preventDefault();
-  showSuccessBanner("signin-success-banner", "Signed in successfully");
+  // showSuccessBanner("signin-success-banner", "Signed in successfully");
 });
 
 forgotPasswordLink.addEventListener("click", () => {

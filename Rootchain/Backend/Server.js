@@ -5,11 +5,14 @@ const port = 3000;
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
 const { v4: uuidv4 } = require('uuid');
+const multer = require('multer');
+const path = require('path');
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const pool = mysql.createPool({
     host: 'localhost',
@@ -24,14 +27,17 @@ res.send('hello')
 })
 
 app.post('/api/v1/register', async (req, res) => {
-    const { fullname, password, email } = req.body;
+    const { fullname, password, email, user_type } = req.body;
 
-    if (!fullname || !password || !email) {
+    if (!fullname || !password || !email || !user_type) {
         return res.status(400).json({ error: "All fields are required" });
     }
 
+    if (user_type !== 'seller' && user_type !== 'buyer') {
+        return res.status(400).json({ error: "Invalid user type. Must be 'seller' or 'buyer'" });
+    }
+
     try {
-        
         const checkQuery = "SELECT id FROM users WHERE email = ?";
         pool.query(checkQuery, [email], async (checkErr, checkResult) => {
             if (checkErr) {
@@ -43,12 +49,10 @@ app.post('/api/v1/register', async (req, res) => {
                 return res.status(400).json({ error: "Email is already registered" });
             }
 
-            
             const hashedPassword = await bcrypt.hash(password, 10);
 
-           
-            const insertQuery = "INSERT INTO users (fullname, password, email) VALUES (?, ?, ?)";
-            pool.query(insertQuery, [fullname, hashedPassword, email], (insertErr, result) => {
+            const insertQuery = "INSERT INTO users (fullname, password, email, user_type) VALUES (?, ?, ?, ?)";
+            pool.query(insertQuery, [fullname, hashedPassword, email, user_type], (insertErr, result) => {
                 if (insertErr) {
                     console.error("Database Error:", insertErr);
                     return res.status(500).json({ error: "Internal Server Error" });
@@ -73,7 +77,7 @@ app.post('/api/v1/login', (req, res) => {
         return res.status(400).json({ error: "All fields are required" });
     }
 
-    const query = "SELECT id, fullname, password FROM users WHERE email = ?";
+    const query = "SELECT id, fullname, password, user_type FROM users WHERE email = ?";
     pool.query(query, [email], async (err, result) => {
         if (err) {
             console.error("Database Error:", err);
@@ -104,11 +108,13 @@ app.post('/api/v1/login', (req, res) => {
                 message: "Login successful",
                 userId: user.id,
                 fullname: user.fullname,
+                user_type: user.user_type, // returning user_type
                 authToken: sessionToken 
             });
         });
     });
 });
+
 
 app.post("/api/contact", (req, res) => {
     const { fullname, email, mobileNumber, emailSubject, message } = req.body;
@@ -137,6 +143,46 @@ app.post('/api/v1/logout', (req, res) => {
             return res.status(500).json({ error: "Failed to logout" });
         }
         res.json({ message: "Logout successful" });
+    });
+});
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'cropuploads/'); // create this folder if not exists
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueSuffix + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({ storage: storage });
+
+// POST route to handle crop uploads
+app.post('/api/v1/upload-crop', upload.single('file-upload'), (req, res) => {
+    const { 'crop-type': cropType, quantity, 'price-per-kg': pricePerKg, location } = req.body;
+    const fileUrl = req.file ? `/cropuploads/${req.file.filename}` : null;
+
+    if (!cropType || !quantity || !pricePerKg || !location) {
+        return res.status(400).json({ error: "All fields are required" });
+    }
+
+    const query = `
+        INSERT INTO crop_uploads (crop_type, quantity, price_per_kg, location, file_url)
+        VALUES (?, ?, ?, ?, ?)
+    `;
+
+    pool.query(query, [cropType, quantity, pricePerKg, location, fileUrl], (err, result) => {
+        if (err) {
+            console.error("DB Error:", err);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+
+        res.json({
+            message: "Crop details uploaded successfully",
+            cropId: result.insertId,
+            data: { cropType, quantity, pricePerKg, location, fileUrl }
+        });
     });
 });
 
