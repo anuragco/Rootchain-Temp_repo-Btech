@@ -26,6 +26,8 @@ app.get('/', (req, res) => {
 res.send('hello')
 })
 
+app.use('/cropuploads', express.static(path.join(__dirname, 'cropuploads')));
+
 app.post('/api/v1/register', async (req, res) => {
     const { fullname, password, email, user_type } = req.body;
 
@@ -115,6 +117,42 @@ app.post('/api/v1/login', (req, res) => {
     });
 });
 
+// Get all contacts with pagination
+app.get('/api/admin/contacts', (req, res) => {
+    const { page = 1, limit = 10 } = req.query;
+    const offset = (page - 1) * limit;
+    
+    const query = `
+        SELECT * 
+        FROM contacts
+        ORDER BY created_at DESC
+        LIMIT ? OFFSET ?
+    `;
+    
+    const countQuery = "SELECT COUNT(*) as total FROM contacts";
+    
+    pool.query(countQuery, [], (countErr, countResult) => {
+        if (countErr) {
+            return res.status(500).json({ error: "Database error" });
+        }
+        
+        pool.query(query, [parseInt(limit), parseInt(offset)], (err, contacts) => {
+            if (err) {
+                return res.status(500).json({ error: "Database error" });
+            }
+            
+            res.json({
+                contacts,
+                pagination: {
+                    total: countResult[0].total,
+                    page: parseInt(page),
+                    limit: parseInt(limit),
+                    pages: Math.ceil(countResult[0].total / limit)
+                }
+            });
+        });
+    });
+});
 
 app.post("/api/contact", (req, res) => {
     const { fullname, email, mobileNumber, emailSubject, message } = req.body;
@@ -148,7 +186,7 @@ app.post('/api/v1/logout', (req, res) => {
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'cropuploads/'); // create this folder if not exists
+        cb(null, 'cropuploads/'); 
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
@@ -186,6 +224,201 @@ app.post('/api/v1/upload-crop', upload.single('file-upload'), (req, res) => {
     });
 });
 
+
+
+
+// Get all users with pagination and search
+app.get('/api/admin/users', (req, res) => {
+    const { page = 1, limit = 10, search = '' } = req.query;
+    const offset = (page - 1) * limit;
+    
+    let query = "SELECT id, fullname, email, user_type, created_at FROM users";
+    let countQuery = "SELECT COUNT(*) as total FROM users";
+    
+    if (search) {
+        const searchPattern = `%${search}%`;
+        query += " WHERE fullname LIKE ? OR email LIKE ?";
+        countQuery += " WHERE fullname LIKE ? OR email LIKE ?";
+    }
+    
+    query += " ORDER BY created_at DESC LIMIT ? OFFSET ?";
+    
+    pool.query(countQuery, search ? [searchPattern, searchPattern] : [], (countErr, countResult) => {
+        if (countErr) {
+            return res.status(500).json({ error: "Database error" });
+        }
+        
+        const params = search ? 
+            [search, search, parseInt(limit), parseInt(offset)] : 
+            [parseInt(limit), parseInt(offset)];
+        
+        pool.query(query, params, (err, users) => {
+            if (err) {
+                return res.status(500).json({ error: "Database error" });
+            }
+            
+            res.json({
+                users,
+                pagination: {
+                    total: countResult[0].total,
+                    page: parseInt(page),
+                    limit: parseInt(limit),
+                    pages: Math.ceil(countResult[0].total / limit)
+                }
+            });
+        });
+    });
+});
+
+// Get detailed user information
+app.get('/api/admin/users/:userId', (req, res) => {
+    const { userId } = req.params;
+    
+    const query = `
+        SELECT u.*, 
+               COUNT(DISTINCT c.id) as crop_count
+        FROM users u
+        LEFT JOIN crop_uploads c ON u.id = c.user_id
+        WHERE u.id = ?
+        GROUP BY u.id
+    `;
+    
+    pool.query(query, [userId], (err, result) => {
+        if (err) {
+            return res.status(500).json({ error: "Database error" });
+        }
+        
+        if (result.length === 0) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        
+        // Remove sensitive information
+        const user = result[0];
+        delete user.password;
+        delete user.auth;
+        
+        res.json(user);
+    });
+});
+
+// Get all crop uploads
+// Get all crop uploads
+app.get('/api/admin/crops', (req, res) => {
+    const { page = 1, limit = 10 } = req.query;
+    const offset = (page - 1) * limit;
+    
+    const query = `
+        SELECT * 
+        FROM crop_uploads
+        ORDER BY uploaded_at DESC
+        LIMIT ? OFFSET ?
+    `;
+    
+    const countQuery = "SELECT COUNT(*) as total FROM crop_uploads";
+    
+    pool.query(countQuery, [], (countErr, countResult) => {
+        if (countErr) {
+            return res.status(500).json({ error: "Database error" });
+        }
+        
+        pool.query(query, [parseInt(limit), parseInt(offset)], (err, crops) => {
+            if (err) {
+                return res.status(500).json({ error: "Database error" });
+            }
+            
+            res.json({
+                crops,
+                pagination: {
+                    total: countResult[0].total,
+                    page: parseInt(page),
+                    limit: parseInt(limit),
+                    pages: Math.ceil(countResult[0].total / limit)
+                }
+            });
+        });
+    });
+});
+
+// Get dashboard statistics
+app.get('/api/admin/stats', (req, res) => {
+    const queries = {
+        totalUsers: "SELECT COUNT(*) as count FROM users",
+        activeSessions: "SELECT COUNT(*) as count FROM users WHERE auth IS NOT NULL",
+        newSignups: "SELECT COUNT(*) as count FROM users WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)",
+        pendingRequests: "SELECT COUNT(*) as count FROM contacts WHERE status = 'pending'",
+        cropsByType: "SELECT crop_type, COUNT(*) as count FROM crop_uploads GROUP BY crop_type",
+        usersByType: "SELECT user_type, COUNT(*) as count FROM users GROUP BY user_type",
+        monthlyGrowth: `
+            SELECT 
+                DATE_FORMAT(created_at, '%Y-%m') as month,
+                COUNT(*) as new_users
+            FROM users
+            WHERE created_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
+            GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+            ORDER BY month
+        `
+    };
+    
+    const stats = {};
+    let completed = 0;
+    const totalQueries = Object.keys(queries).length;
+    
+    Object.entries(queries).forEach(([key, query]) => {
+        pool.query(query, (err, result) => {
+            if (err) {
+                console.error(`Error in ${key} query:`, err);
+                stats[key] = { error: "Failed to fetch data" };
+            } else {
+                stats[key] = key === 'monthlyGrowth' || key === 'cropsByType' || key === 'usersByType' 
+                    ? result 
+                    : result[0].count;
+            }
+            
+            completed++;
+            if (completed === totalQueries) {
+                res.json(stats);
+            }
+        });
+    });
+});
+
+// Admin login endpoint
+app.post('/api/admin/login', (req, res) => {
+    const { username, password } = req.body;
+    
+    if (!username || !password) {
+        return res.status(400).json({ error: "Username and password are required" });
+    }
+    
+    const query = "SELECT id, password FROM admins WHERE username = ?";
+    pool.query(query, [username], async (err, result) => {
+        if (err || result.length === 0) {
+            return res.status(401).json({ error: "Invalid credentials" });
+        }
+        
+        const admin = result[0];
+        const passwordMatch = await bcrypt.compare(password, admin.password);
+        
+        if (!passwordMatch) {
+            return res.status(401).json({ error: "Invalid credentials" });
+        }
+        
+        const authToken = uuidv4();
+        const updateQuery = "UPDATE admins SET auth_token = ? WHERE id = ?";
+        
+        pool.query(updateQuery, [authToken, admin.id], (updateErr) => {
+            if (updateErr) {
+                return res.status(500).json({ error: "Failed to create session" });
+            }
+            
+            res.json({
+                message: "Admin login successful",
+                adminId: admin.id,
+                authToken
+            });
+        });
+    });
+});
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
